@@ -22,6 +22,10 @@ export const useLazyData = (apiFn) => {
           result.value = data.result
         })
       }
+    },
+    // 配置项
+    {
+      threshold: 0.1
     }
   )
   return { result, target }

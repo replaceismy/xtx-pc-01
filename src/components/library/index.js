@@ -12,5 +12,29 @@ export default {
     app.component(XtxSkeloten.name, XtxSkeloten)
     app.component(XtxCarousel.name, XtxCarousel)
     app.component(XtxMore.name, XtxMore)
+    // 定义指令
+    defineDirective(app)
   }
+}
+// 定义指令
+const defineDirective = (app) => {
+  // 图片懒加载指令 v-lazy
+  app.directive('lazy', {
+    // vue2.0 监听使用指令的DOM是否创建好，钩子函数：inserted
+    // vue3.0 的指令拥有的钩子函数和组件的一样 ，使用指令的DOM是否创建好 ，钩子函数：mounted
+    mounted (el, binding) {
+      const observer = new IntersectionObserver((isIntersecting) => {
+        if (isIntersecting) {
+          // 停止观察
+          observer.unobserver(el)
+          // 把指令的值设置给el的scr属性 binding.value 就是指令的值
+          el.scr = binding.value
+        }
+      }, {
+        threshold: 0
+      })
+      // 开启指令
+      observer.observer(el)
+    }
+  })
 }
