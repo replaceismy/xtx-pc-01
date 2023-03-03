@@ -3,20 +3,22 @@
 // vue2.0插件写法要素：导出一个对象。欧install函数。默认传出Vue构造函数，Vue基础之上拓展
 // vue3.0插件写法要素：导出一个对象，有install函数，默认传入了APP应用实例，APP基础之上拓展
 import defaultImg from '@/assets/images/200.png'
-import XtxSkeloten from './xtx-skeloten.vue'
-import XtxCarousel from './xtx-carousel.vue'
-import XtxMore from './xtx-more.vue'
-import XtxBreak from './xtx-break.vue'
-import XtxBreakItem from './xtx-break-item.vue'
+// import XtxSkeloten from './xtx-skeloten.vue'
+// import XtxCarousel from './xtx-carousel.vue'
+// import XtxMore from './xtx-more.vue'
+// import XtxBread from './xtx-bread.vue'
+// import XtxBreadItem from './xtx-bread-item.vue'
+const importFn = require.context('./', false, /\.vue$/)
 
 export default {
   install (app) {
   // 在APP上进行拓展，APP提供 component(全局组件) directive(自定义指令)
-    app.component(XtxSkeloten.name, XtxSkeloten)
-    app.component(XtxCarousel.name, XtxCarousel)
-    app.component(XtxMore.name, XtxMore)
-    app.component(XtxBreak.name, XtxBreak)
-    app.component(XtxBreakItem.name, XtxBreakItem)
+
+    importFn.keys().forEach(path => {
+      const component = importFn(path).default
+      app.component(component.name, component)
+    })
+
     // 定义指令
     defineDirective(app)
   }

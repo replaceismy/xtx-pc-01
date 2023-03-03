@@ -2,9 +2,11 @@
   <div class="top-category">
     <div class="container">
       <!-- 面包屑 -->
-      <XtxBreak>
-        a
-      </XtxBreak>
+      <XtxBread>
+        <XtxBreadItem :to="{path:'/'}">首页</XtxBreadItem>
+        <XtxBreadItem>电器</XtxBreadItem>
+        <XtxBreadItem>冰箱</XtxBreadItem>
+      </XtxBread>
       <!-- 轮播图 -->
       <!-- 全部分类 -->
       <!-- 各个分类商品 -->
