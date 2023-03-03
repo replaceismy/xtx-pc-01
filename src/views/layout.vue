@@ -1,6 +1,6 @@
 <template>
   <!-- 顶部通栏 -->
-    <app-navbar/>
+    <AppNavbar/>
   <!-- 吸顶头部组件 -->
     <AppHeaderSticky/>
   <!-- 头部组件 -->

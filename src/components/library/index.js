@@ -2,9 +2,12 @@
 // 这就是插件
 // vue2.0插件写法要素：导出一个对象。欧install函数。默认传出Vue构造函数，Vue基础之上拓展
 // vue3.0插件写法要素：导出一个对象，有install函数，默认传入了APP应用实例，APP基础之上拓展
+import defaultImg from '@/assets/images/200.png'
 import XtxSkeloten from './xtx-skeloten.vue'
 import XtxCarousel from './xtx-carousel.vue'
 import XtxMore from './xtx-more.vue'
+import XtxBreak from './xtx-break.vue'
+import XtxBreakItem from './xtx-break-item.vue'
 
 export default {
   install (app) {
@@ -12,6 +15,8 @@ export default {
     app.component(XtxSkeloten.name, XtxSkeloten)
     app.component(XtxCarousel.name, XtxCarousel)
     app.component(XtxMore.name, XtxMore)
+    app.component(XtxBreak.name, XtxBreak)
+    app.component(XtxBreakItem.name, XtxBreakItem)
     // 定义指令
     defineDirective(app)
   }
@@ -23,18 +28,21 @@ const defineDirective = (app) => {
     // vue2.0 监听使用指令的DOM是否创建好，钩子函数：inserted
     // vue3.0 的指令拥有的钩子函数和组件的一样 ，使用指令的DOM是否创建好 ，钩子函数：mounted
     mounted (el, binding) {
-      const observer = new IntersectionObserver((isIntersecting) => {
+      const observer = new IntersectionObserver(([{ isIntersecting }]) => {
         if (isIntersecting) {
           // 停止观察
-          observer.unobserver(el)
-          // 把指令的值设置给el的scr属性 binding.value 就是指令的值
-          el.scr = binding.value
+          observer.unobserve(el)
+          // 把指令的值设置给el的src属性 binding.value 就是指令的值
+          el.onerror = () => {
+            el.src = defaultImg
+          }
+          el.src = binding.value
         }
       }, {
         threshold: 0
       })
       // 开启指令
-      observer.observer(el)
+      observer.observe(el)
     }
   })
 }
